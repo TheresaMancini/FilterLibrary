@@ -12,12 +12,6 @@ import java.util.Map;
  * <p>Filters are used to evaluate a resource, represented as a {@code Map<String, String>},
  * and determine if it satisfies the filter's conditions.</p>
  *
- * Example Usage:
- * <pre>{@code
- * Filter filter = new GreaterThanFilter("age", 18);
- * boolean result = filter.matches(resource); // Evaluates if "age" > 18 in the given resource
- * }</pre>
- *
  */
 
 public interface Filter 

@@ -68,7 +68,7 @@ public class LessThanFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"LessThan\",\"filed\':" + property + "\",\"value:\""+ value +"\"}";
+        return "{\"type\":\"LessThan\",\"field\":\"" + property + "\",\"value\":\""+ value +"\"}";
     }
 
 }

@@ -53,7 +53,7 @@ public class NotFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"NOT\",\"filters\":" + filter.toString() + "}";
+        return "{\"type\":\"NOT\",\"filter\":" + filter.toString() + "}";
     }
 
 }

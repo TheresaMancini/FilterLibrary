@@ -1,5 +1,7 @@
 package handsoncode.filter;
 
+import com.google.gson.*;
+import java.io.StringReader;
 import java.util.List;
 
 /**
@@ -59,7 +61,7 @@ public class FilterFactory {
     /**
      * Creates a filter that checks if a numeric field is greater than the specified value.
      *
-     * @param property   The name of the field to compare.
+     * @param property The name of the field to compare.
      * @param value The threshold value.
      * @return A {@link GreaterThanFilter} instance.
      * @throws NullPointerException if {@code property} is null.
@@ -71,7 +73,7 @@ public class FilterFactory {
      /**
      * Creates a filter that checks if a numeric field is less than the specified value.
      *
-     * @param property   The name of the field to compare.
+     * @param property The name of the field to compare.
      * @param value The threshold value.
      * @return A {@link LessThanFilter} instance.
      * @throws NullPointerException if {@code property} is null.
@@ -82,7 +84,7 @@ public class FilterFactory {
     /**
      * Creates a filter that checks if a field matches a given string.
      *
-     * @param property   The field to check.
+     * @param property The field to check.
      * @param value The expected value.
      * @return An {@link IsEqualFilter} instance.
      * @throws NullPointerException if {@code property} or {@code value} is null.
@@ -94,7 +96,7 @@ public class FilterFactory {
     /**
      * Creates a filter that checks if a field is present in the resource.
      *
-     * @param property   The field to check.
+     * @param property The field to check.
      * @return An {@link IsPresentFilter} instance.
      * @throws NullPointerException if {@code property} is null.
      */
@@ -105,7 +107,7 @@ public class FilterFactory {
     /**
      * Creates a filter that checks if a field is present in the resource.
      *
-     * @param property   The field to check.
+     * @param property The field to check.
      * @param value The regular expression to match (must not be {@code null}).
      * @return A {@link MatchesExpressionFilter} that applies the given regex.
      * @throws NullPointerException if {@code property} is null.
@@ -146,5 +148,29 @@ public class FilterFactory {
         return new NotFilter(filter);
     }
 
+    /** 
+     * Gson instance configured with a custom {@link FilterDeserializer} 
+     * to handle the deserialization of various filter types.
+     */
+    private static final Gson gson = new GsonBuilder()
+            .registerTypeAdapter(Filter.class, new FilterDeserializer()) // Register custom deserializer
+            .create();
+
+     /**
+     * Converts a JSON string representation of a filter into a {@link Filter} object.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * String jsonFilter = "{\"type\":\"greaterthan\",\"field\":\"age\",\"value\":30}";
+     * Filter filter = FilterFactory.fromString(jsonFilter);
+     * </pre>
+     *
+     * @param filterString The JSON string representing a filter.
+     * @return A {@link Filter} object parsed from the JSON string.
+     * @throws JsonParseException If the JSON string is not a valid filter representation.
+     */
+    public static Filter fromString(String filterString) {
+        return gson.fromJson(filterString, Filter.class);
+    }
 }
 

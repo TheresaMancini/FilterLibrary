@@ -60,7 +60,7 @@ public class IsEqualFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"IsEqualFilter\",\"filed\':" + property + "\",\"value:\""+ value +"\"}";
+        return "{\"type\":\"EqualsTo\",\"field\":\"" + property + "\",\"value\":\""+ value +"\"}";
     }
     
 

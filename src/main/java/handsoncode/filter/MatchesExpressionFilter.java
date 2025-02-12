@@ -73,7 +73,7 @@ public class MatchesExpressionFilter implements Filter{
      */
     @Override
     public String toString(){
-        return "{\"type\":\"RegexFilter\",\"filed\':" + property + "\",\"value:\""+ value +"\"}";
+        return "{\"type\":\"MatchesExpression\",\"field\":\"" + property + "\",\"value\":\""+ value +"\"}";
     }
 
 }

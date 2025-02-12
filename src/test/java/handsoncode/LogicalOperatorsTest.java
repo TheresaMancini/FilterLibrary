@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,9 +17,8 @@ public class LogicalOperatorsTest {
    
     @Test
     public void NotFilterTest(){
-        Map<String, String> user = new HashMap<>();
-        user.put("firstname", "Joe");
-        user.put("lastname", "Bloggs");
+        Map<String, String> user;
+        user = TestData.getUserAge35();
 
         Filter trueFilter = FilterFactory.trueFilter();
         Filter falseFilter = FilterFactory.falseFilter();
@@ -37,9 +35,8 @@ public class LogicalOperatorsTest {
     @Test
     public void AndFilterTest(){
 
-        Map<String, String> user = new HashMap<>();
-        user.put("firstname", "Joe");
-        user.put("lastname", "Bloggs");
+        Map<String, String> user;
+        user = TestData.getUserAge35();
 
         Filter trueFilter = FilterFactory.trueFilter();
         Filter falseFilter = FilterFactory.falseFilter();
@@ -61,22 +58,21 @@ public class LogicalOperatorsTest {
     @Test
     public void OrFilterTest(){
 
-        Map<String, String> user = new HashMap<>();
-        user.put("firstname", "Joe");
-        user.put("lastname", "Bloggs");
+        Map<String, String> user;
+        user = TestData.getUserAge35();
 
         Filter trueFilter = FilterFactory.trueFilter();
         Filter falseFilter = FilterFactory.falseFilter();
+        Filter agegt30 = FilterFactory.greaterThan("age",30);
+        Filter agelt20 = FilterFactory.lessThan("age",20);
        
-        Filter orFilterTrue = FilterFactory.or(List.of(falseFilter,trueFilter));
-        Filter orFilterTrue2 = FilterFactory.or(List.of(falseFilter,falseFilter,trueFilter));
-        Filter orFilterFalse = FilterFactory.or(List.of(falseFilter,falseFilter,falseFilter));
+        Filter orFilterTrue = FilterFactory.or(List.of(agegt30,trueFilter));
+        Filter orFilterFalse = FilterFactory.or(List.of(falseFilter,agelt20));
 
         assertTrue(orFilterTrue.matches(user));
-        assertTrue(orFilterTrue2.matches(user));
         assertFalse(orFilterFalse.matches(user));
 
-        String expected = "{\"type\":\"OR\",\"filters\":[{\"type\":\"FalseFilter\",\"value\":\"false\"},{\"type\":\"FalseFilter\",\"value\":\"false\"},{\"type\":\"FalseFilter\",\"value\":\"false\"}]}";
+        String expected = "{\"type\":\"OR\",\"filters\":[{\"type\":\"FalseFilter\",\"value\":\"false\"},{\"type\":\"LessThan\",\"field\":\"age\",\"value\":\"20.0\"}]}";
 
         assertEquals(expected,orFilterFalse.toString());
 
@@ -85,25 +81,24 @@ public class LogicalOperatorsTest {
     @Test
     public void ComposeAndOrFilterTest(){
 
-        Map<String, String> user = new HashMap<>();
-        user.put("firstname", "Joe");
-        user.put("lastname", "Bloggs");
+        Map<String, String> user;
+        user = TestData.getUserAge25();
 
         Filter trueFilter = FilterFactory.trueFilter();
-        Filter falseFilter = FilterFactory.falseFilter();
+        Filter agegt30 = FilterFactory.greaterThan("age",30);
+        Filter agelt27 = FilterFactory.lessThan("age",27);
        
-        Filter andFilterTrue = FilterFactory.and(List.of(trueFilter,trueFilter));
-        Filter andFilterFalse = FilterFactory.and(List.of(trueFilter,falseFilter));
-        Filter orComposeFilterTrue = FilterFactory.or(List.of(andFilterTrue,andFilterFalse));
-        Filter orComposeFilterFalse = FilterFactory.or(List.of(andFilterFalse,andFilterFalse));
+       
+        Filter andFilterTrue = FilterFactory.and(List.of(trueFilter,agelt27));
+        Filter andFilterFalse = FilterFactory.and(List.of(trueFilter,agegt30));
         
-        Filter notOrComposeFilterFalse = FilterFactory.not(orComposeFilterFalse);
+        Filter orComposeFilterTrue = FilterFactory.or(List.of(andFilterTrue,andFilterFalse));
+        Filter notOrComposeFilterFalse = FilterFactory.not(andFilterFalse);
 
         assertTrue(orComposeFilterTrue.matches(user));
-        assertFalse(orComposeFilterFalse.matches(user));
         assertTrue(notOrComposeFilterFalse.matches(user));
-
-        String expected = "{\"type\":\"NOT\",\"filters\":{\"type\":\"OR\",\"filters\":[{\"type\":\"AND\",\"filters\":[{\"type\":\"TrueFilter\",\"value\":\"true\"},{\"type\":\"FalseFilter\",\"value\":\"false\"}]},{\"type\":\"AND\",\"filters\":[{\"type\":\"TrueFilter\",\"value\":\"true\"},{\"type\":\"FalseFilter\",\"value\":\"false\"}]}]}}";
+        
+        String expected = "{\"type\":\"NOT\",\"filter\":{\"type\":\"AND\",\"filters\":[{\"type\":\"TrueFilter\",\"value\":\"true\"},{\"type\":\"GreaterThan\",\"field\":\"age\",\"value\":\"30.0\"}]}}";
 
         assertEquals(expected, notOrComposeFilterFalse.toString());
        
