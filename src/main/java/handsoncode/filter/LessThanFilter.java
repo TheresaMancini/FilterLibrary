@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * {@code LessThanFilter} is an implementation of the {@link Filter} interface 
- * that checks if the value of a specified property in the resource is less than 
- * a predefined threshold value.
+ * {@code LessThanFilter} is a concrete implementation of the {@link Filter} interface
+ * A filter that checks if a field's value is less than a given threshold.
  * 
  * Example Usage:
  * <pre>{@code
@@ -68,7 +67,7 @@ public class LessThanFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"LessThan\",\"field\":\"" + property + "\",\"value\":\""+ value +"\"}";
+        return "{\"type\":\"LessThan\",\"property\":\"" + property + "\",\"value\":\""+ value +"\"}";
     }
 
 }

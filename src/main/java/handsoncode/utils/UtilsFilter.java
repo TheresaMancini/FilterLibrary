@@ -18,7 +18,7 @@ public final class UtilsFilter {
 
     // Suppresses default constructor, ensuring non-instantiability.
     private UtilsFilter() {
-        throw new UnsupportedOperationException("Utility class, should not be instantiated");
+        throw new AssertionError("Utility class, should not be instantiated");
     }
     /**
      * Safely parses a string into a double, returning a default value if parsing fails.

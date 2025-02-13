@@ -21,15 +21,13 @@ import java.util.Map;
 public class TrueFilter implements Filter {
     
     private boolean value = true;
-    private static final TrueFilter instance = new TrueFilter();
+    private static final TrueFilter INSTANCE = new TrueFilter();
 
     /**
-     * Constructor to prevent instantiation from outside.
+     * Private constructor to prevent instantiation from outside.
      * The class follows the Singleton pattern, so only one instance of {@code TrueFilter} exists.
      */
-    protected TrueFilter(){
-        
-    }
+    private TrueFilter(){}
 
     /**
      * Always returns {@code true}.
@@ -59,6 +57,6 @@ public class TrueFilter implements Filter {
      * @return the unique instance of the {@code TrueFilter}.
      */
     public static TrueFilter getInstance(){
-        return instance;
+        return INSTANCE;
     }
 }

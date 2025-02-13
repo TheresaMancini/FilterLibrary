@@ -26,7 +26,7 @@ import java.util.List;
  * <pre>
  * {
  *     "type": "GreaterThan",
- *     "field": "age",
+ *     "property": "age",
  *     "value": 30
  * }
  * </pre>
@@ -59,19 +59,19 @@ public class FilterDeserializer implements JsonDeserializer<Filter> {
                 return FalseFilter.getInstance();
 
             case "greaterthan":
-                return new GreaterThanFilter(jsonObject.get("field").getAsString(), jsonObject.get("value").getAsDouble());
+                return new GreaterThanFilter(jsonObject.get("property").getAsString(), jsonObject.get("value").getAsDouble());
 
             case "lessthan":
-                return new LessThanFilter(jsonObject.get("field").getAsString(), jsonObject.get("value").getAsDouble());
+                return new LessThanFilter(jsonObject.get("property").getAsString(), jsonObject.get("value").getAsDouble());
 
             case "equalsto":
-                return new IsEqualFilter(jsonObject.get("field").getAsString(), jsonObject.get("value").getAsString());
+                return new IsEqualFilter(jsonObject.get("property").getAsString(), jsonObject.get("value").getAsString());
             
             case "ispresent":
-                return new IsPresentFilter(jsonObject.get("field").getAsString());
+                return new IsPresentFilter(jsonObject.get("property").getAsString());
             
             case "matchesexpression":
-                return new MatchesExpressionFilter(jsonObject.get("field").getAsString(), jsonObject.get("value").getAsString());
+                return new MatchesExpressionFilter(jsonObject.get("property").getAsString(), jsonObject.get("value").getAsString());
 
             case "not":
                 return new NotFilter(context.deserialize(jsonObject.get("filter"), Filter.class));

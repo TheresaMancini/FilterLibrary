@@ -1,7 +1,6 @@
 package handsoncode.filter;
 
 import com.google.gson.*;
-import java.io.StringReader;
 import java.util.List;
 
 /**
@@ -36,9 +35,8 @@ import java.util.List;
 
 public class FilterFactory {
 
-    private FilterFactory(){
-
-    }
+    // Suppresses default constructor, ensuring non-instantiability.
+    private FilterFactory(){}
 
     /**
      * Creates a filter that always evaluates to {@code true}.
@@ -161,7 +159,7 @@ public class FilterFactory {
      *
      * <p>Example usage:</p>
      * <pre>
-     * String jsonFilter = "{\"type\":\"greaterthan\",\"field\":\"age\",\"value\":30}";
+     * String jsonFilter = "{\"type\":\"greaterthan\",\"property\":\"age\",\"value\":30}";
      * Filter filter = FilterFactory.fromString(jsonFilter);
      * </pre>
      *

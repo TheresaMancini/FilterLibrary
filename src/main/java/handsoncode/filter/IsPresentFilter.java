@@ -52,7 +52,7 @@ public class IsPresentFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"isPresent\",\"field\":\"" +   property + "\"}";
+        return "{\"type\":\"isPresent\",\"property\":\"" +   property + "\"}";
     }
 
 }

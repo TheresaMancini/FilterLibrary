@@ -72,7 +72,7 @@ public class GreaterThanFilter implements Filter {
      */
     @Override
     public String toString(){
-        return "{\"type\":\"GreaterThan\",\"field\":\"" + property + "\",\"value\":\""+ value +"\"}";
+        return "{\"type\":\"GreaterThan\",\"property\":\"" + property + "\",\"value\":\""+ value +"\"}";
     }
     
 }

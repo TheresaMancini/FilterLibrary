@@ -21,15 +21,13 @@ import java.util.Map;
 public class FalseFilter implements Filter {
 
     private boolean value = false;
-    private static final FalseFilter instance = new FalseFilter();
+    private static final FalseFilter INSTANCE = new FalseFilter();
 
     /**
-     * Constructor to prevent instantiation from outside.
+     * Private constructor to prevent instantiation from outside.
      * The class follows the Singleton pattern, so only one instance of {@code FalseFilter} exists.
      */
-    protected FalseFilter(){
-        
-    }
+    private FalseFilter(){}
 
     /**
      * Always returns {@code false}.
@@ -59,7 +57,7 @@ public class FalseFilter implements Filter {
      * @return the unique instance of the {@code FalseFilter}.
      */
     public static FalseFilter getInstance(){
-        return instance;
+        return INSTANCE;
     }
 
 }

@@ -72,7 +72,7 @@ public class LogicalOperatorsTest {
         assertTrue(orFilterTrue.matches(user));
         assertFalse(orFilterFalse.matches(user));
 
-        String expected = "{\"type\":\"OR\",\"filters\":[{\"type\":\"FalseFilter\",\"value\":\"false\"},{\"type\":\"LessThan\",\"field\":\"age\",\"value\":\"20.0\"}]}";
+        String expected = "{\"type\":\"OR\",\"filters\":[{\"type\":\"FalseFilter\",\"value\":\"false\"},{\"type\":\"LessThan\",\"property\":\"age\",\"value\":\"20.0\"}]}";
 
         assertEquals(expected,orFilterFalse.toString());
 
@@ -98,7 +98,7 @@ public class LogicalOperatorsTest {
         assertTrue(orComposeFilterTrue.matches(user));
         assertTrue(notOrComposeFilterFalse.matches(user));
         
-        String expected = "{\"type\":\"NOT\",\"filter\":{\"type\":\"AND\",\"filters\":[{\"type\":\"TrueFilter\",\"value\":\"true\"},{\"type\":\"GreaterThan\",\"field\":\"age\",\"value\":\"30.0\"}]}}";
+        String expected = "{\"type\":\"NOT\",\"filter\":{\"type\":\"AND\",\"filters\":[{\"type\":\"TrueFilter\",\"value\":\"true\"},{\"type\":\"GreaterThan\",\"property\":\"age\",\"value\":\"30.0\"}]}}";
 
         assertEquals(expected, notOrComposeFilterFalse.toString());
        

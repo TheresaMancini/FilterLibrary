@@ -1,8 +1,10 @@
 package handsoncode;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -51,5 +53,21 @@ public class ParseJsonTest {
         assertEquals(notFilterFromString.toString(), notOrComposeFilter.toString());
 
     }
-
+    
+    @Test
+    public void JsonParseFilter()
+    {
+        Map<String, String> user;
+        user = TestData.getUserAge25();
+        
+        Filter agegt30 = FilterFactory.greaterThan("age",20);
+        Filter trueFilter = FilterFactory.trueFilter();
+        
+        Filter composedFilter =FilterFactory.or(List.of(agegt30,trueFilter));
+        
+        Filter parsedFilter = FilterFactory.fromString(agegt30.toString());
+        assertTrue(parsedFilter.matches(user));
+        Filter combinedFilter = FilterFactory.fromString(composedFilter.toString());
+        assertTrue(combinedFilter.matches(user));
+    }
 }
