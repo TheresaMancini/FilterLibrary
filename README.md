@@ -17,3 +17,18 @@ Filter filter2 = FilterFactory.equalsTo("status", "active");
 System.out.println(filter1.matches(resource));  // true
 System.out.println(filter2.matches(resource));  // true
 ```
+You can also create a Filter based on a Json representation
+
+```java
+import handsoncode.filter.*;
+
+Map<String, String> resource = new HashMap<>();
+resource.put("age", "25");
+resource.put("status", "active");
+
+String filter1String = "{\"type\":\"GreaterThan\",\"property\":\"age\",\"value\":\"20\"}";
+
+Filter filter1 = FilterFactory.fromString(filter1String);
+
+System.out.println(filter1.matches(resource));  // true
+```

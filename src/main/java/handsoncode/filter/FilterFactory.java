@@ -48,6 +48,20 @@ public class FilterFactory {
     }
 
     /**
+     * A list of the filters available to be created.
+     *
+     * @return A {@link List} of the filters available.
+     */
+    public static List<String> getFilterTypes(){
+        return List.of(
+            "GreaterThan","LessThan","EqualsTo",
+            "isPresent","MatchesExpression", "AND","OR",
+            "NOT","TrueFilter","FalseFilter"
+        );
+        
+    }
+
+    /**
      * Creates a filter that always evaluates to {@code false}.
      *
      * @return A {@link FalseFilter} instance that always returns {@code false}.
