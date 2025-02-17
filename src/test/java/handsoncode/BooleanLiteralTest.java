@@ -14,7 +14,6 @@ import handsoncode.filter.FilterFactory;
 public class BooleanLiteralTest 
 {
 
-    //Puxar o Map pra fora -- Criar modelo de teste
     @Test
     public void testTrueFilter(){
 

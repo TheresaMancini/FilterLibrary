@@ -1,6 +1,21 @@
 # FilterLibrary
 This Java library provides a set of filter classes that can be used to check if a resource (represented by a Map<String, String>) matches certain criteria.
 
+## Building
+Building requires a Java JDK and Apache Maven. The required Java version is found in the pom.xml as the maven.compiler.source property.
+Use the following command to compile, test, and package the project:
+
+```
+mvn clean install
+```
+
+## Running Unit Tests
+To just run unit test, use the following command:
+
+```
+mvn test
+```
+
 ## Creating Filters
 You can create various filters using the FilterFactory.
 
@@ -32,3 +47,9 @@ Filter filter1 = FilterFactory.fromString(filter1String);
 
 System.out.println(filter1.matches(resource));  // true
 ```
+
+## Expanding Library: adding new filters
+To add a new filter type, follow these steps:
+- Create a new class that implements the `Filter` interface. 
+- Modify the `FilterFactory` class to include a method for creating the new filter type.
+- Update the `FilterDeserializer` by adding a new case in the switch-case clause to handle the new filter.
